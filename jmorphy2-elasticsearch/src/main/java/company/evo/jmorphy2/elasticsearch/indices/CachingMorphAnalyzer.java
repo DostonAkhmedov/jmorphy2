@@ -52,6 +52,7 @@ public class CachingMorphAnalyzer extends MorphAnalyzer {
             (PrivilegedAction<LoadingCache<String, List<ParsedWord>>>) () ->
                 Caffeine.newBuilder()
                     .maximumSize(cacheSize)
+                    .executor(Runnable::run)
                     .build(super::parse)
         );
     }
